@@ -11,9 +11,13 @@ app.use(cors());
 const repositories = [];
 
 // wapp.use('/repositories/:id', validateRepositoryId);
-app.get('/repositories', (request, response) => response.json(repositories));
+app.get('/repositories', (request, response) => {
+  console.log('get ');
+  response.json(repositories);
+});
 
 app.post('/repositories', (request, response) => {
+  console.log('create ');
   const { url, title, techs } = request.body;
 
   const repository = {
@@ -29,6 +33,7 @@ app.post('/repositories', (request, response) => {
 });
 
 app.put('/repositories/:id', (request, response) => {
+  console.log('put');
   const { id } = request.params;
   const { title, url, techs } = request.body;
 
@@ -49,6 +54,7 @@ app.put('/repositories/:id', (request, response) => {
 });
 
 app.delete('/repositories/:id', (request, response) => {
+  console.log('delete ');
   const { id } = request.params;
   const repositoryIndex = repositories.findIndex((repository) => repository.id === id);
   if (repositoryIndex < 0) {
@@ -59,6 +65,7 @@ app.delete('/repositories/:id', (request, response) => {
 });
 
 app.post('/repositories/:id/like', (request, response) => {
+  console.log('post like ');
   const { id } = request.params;
   const repository = repositories.find((repo) => repo.id === id);
   if (!repository) {
